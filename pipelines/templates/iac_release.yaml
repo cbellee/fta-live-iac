@@ -24,7 +24,21 @@ stages:
                   downloadType: 'specific'
                   downloadPath: '$(Pipeline.Workspace)'
                   artifactName: 'templates'
-                  
+
+              - task: AzurePowerShell@5
+                inputs:
+                  azureSubscription: $(subscription_id)
+                  pwsh: true
+                  ScriptType: InlineScript
+                  Inline: |
+                    $result = Get-AzResourceGroupDeploymentWhatIfResult `
+                      -Mode 'Incremental' `
+                      -ResourceGroupName '${{ parameters.environment }}-${{ parameters.name }}-rg' `
+                      -TemplateFile '$(Pipeline.Workspace)/templates/main.json' `
+                      -TemplateParameterObject @{'name'=${{ parameters.name }};'environment'="${{ parameters.environment }}"} `
+                      -ResultFormat "FullResourcePayloads"
+
+                    $result
 
               - task: AzureResourceManagerTemplateDeployment@3
                 inputs:
@@ -36,6 +50,6 @@ stages:
                   location: '${{ parameters.location }}'
                   templateLocation: 'Linked artifact'
                   # these next 2 lines need to be updated based on your template file name, and template file parameters
-                  csmFile: '$(Pipeline.Workspace)/templates/main.json'
+                  csmFile: '$(Pipeline.Workspace)/templates/cbellee-dev.json'
                   overrideParameters: -name "${{ parameters.name }}"  -environment "${{ parameters.environment }}"
                   deploymentMode: 'Incremental'
