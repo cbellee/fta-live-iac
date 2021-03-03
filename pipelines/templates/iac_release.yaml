@@ -34,7 +34,7 @@ stages:
                     $result = Get-AzResourceGroupDeploymentWhatIfResult `
                       -Mode 'Incremental' `
                       -ResourceGroupName '${{ parameters.environment }}-${{ parameters.name }}-rg' `
-                      -TemplateFile '$(Pipeline.Workspace)/templates/main.json' `
+                      -TemplateFile '$(Pipeline.Workspace)/templates/cbellee-dev.json' `
                       -TemplateParameterObject @{'name'="${{ parameters.name }}";'environment'="${{ parameters.environment }}"} `
                       -ResultFormat "FullResourcePayloads"
 
