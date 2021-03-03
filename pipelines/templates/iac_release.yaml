@@ -29,14 +29,13 @@ stages:
                 inputs:
                   azureSubscription: $(azure_service_connection)
                   azurePowerShellVersion: LatestVersion
-                  pwsh: false
                   ScriptType: InlineScript
                   Inline: |
                     $result = Get-AzResourceGroupDeploymentWhatIfResult `
                       -Mode 'Incremental' `
                       -ResourceGroupName '${{ parameters.environment }}-${{ parameters.name }}-rg' `
                       -TemplateFile '$(Pipeline.Workspace)/templates/main.json' `
-                      -TemplateParameterObject @{'name'=${{ parameters.name }};'environment'="${{ parameters.environment }}"} `
+                      -TemplateParameterObject @{'name'="${{ parameters.name }}";'environment'="${{ parameters.environment }}"} `
                       -ResultFormat "FullResourcePayloads"
 
                     $result
