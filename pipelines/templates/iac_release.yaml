@@ -28,6 +28,8 @@ stages:
               - task: AzurePowerShell@5
                 inputs:
                   azureSubscription: $(azure_service_connection)
+                  azurePowerShellVersion: LatestVersion
+                  pwsh: false
                   ScriptType: InlineScript
                   Inline: |
                     $result = Get-AzResourceGroupDeploymentWhatIfResult `
