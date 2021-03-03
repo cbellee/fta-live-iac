@@ -13,7 +13,7 @@ variables:
 - name: _filePath
   value: '$(Build.SourcesDirectory)/bicep/'
 - name: _fileName
-  value: 'main'
+  value: 'cbellee-dev'
 
 pool:
   vmImage: 'windows-latest'
