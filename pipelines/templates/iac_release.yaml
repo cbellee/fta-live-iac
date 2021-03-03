@@ -27,7 +27,7 @@ stages:
 
               - task: AzurePowerShell@5
                 inputs:
-                  azureSubscription: $(subscription_id)
+                  azureSubscription: $(azure_service_connection)
                   pwsh: true
                   ScriptType: InlineScript
                   Inline: |
