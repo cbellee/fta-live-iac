@@ -16,7 +16,7 @@ parameters:
     default: 'iaccb'
 
 trigger:
-- main
+- cbellee-dev
 
 stages:
   - template: templates/iac_release.yaml
